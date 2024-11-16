@@ -2,14 +2,15 @@
 import Layout from '../../layouts/Layout.astro';
 import { getProducts } from '../../services/productService';
 
-const { id } = Astro.params;
-const products = await getProducts();
-const product = products.find(p => p.id === parseInt(id));
-
-if (!product) {
-  return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const products = await getProducts();
+  return products.map(product => ({
+    params: { id: product.id.toString() },
+    props: { product },
+  }));
 }
 
+const { product } = Astro.props;
 const formattedPrice = Number(product.price).toFixed(2);
 ---
 
