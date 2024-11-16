@@ -6,4 +6,7 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://rdmaal.github.io',
   base: '/WTrendspotter',
+  build: {
+    assets: 'assets'
+  }
 });
