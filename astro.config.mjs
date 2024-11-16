@@ -3,5 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   output: 'server',
-  integrations: [tailwind()]
+  integrations: [tailwind()],
+  site: 'https://rdmaal.github.io',
+  base: '/WTrendspotter',
 });
