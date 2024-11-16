@@ -1,0 +1,35 @@
+---
+interface Props {
+	id: number | string;
+	title: string;
+	description: string;
+	price: number;
+	image: string;
+	category: string;
+}
+
+const { id, title, description, price, image, category } = Astro.props;
+const formattedPrice = Number(price).toFixed(2);
+---
+
+<a href={`/product/${id}`} class="block group">
+	<article class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative">
+		<div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+		<div class="h-72 overflow-hidden relative">
+			<img 
+				src={image} 
+				alt={title}
+				class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+			/>
+			<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+		</div>
+		<div class="p-5 relative">
+			<div class="flex justify-between items-start mb-3">
+				<span class="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium rounded-full uppercase tracking-wider shadow-sm">{category}</span>
+				<p class="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">${formattedPrice}</p>
+			</div>
+			<h2 class="text-xl font-display font-semibold text-gray-100 mb-2">{title}</h2>
+			<p class="text-sm text-gray-400 leading-relaxed">{description}</p>
+		</div>
+	</article>
+</a>

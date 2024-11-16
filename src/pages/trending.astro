@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { trendingProducts } from '../data/trending';
+---
+
+<Layout title="Weekly Trends | TrendSpotter">
+	<main class="max-w-md mx-auto px-4 py-8">
+		<section class="text-center mb-10">
+			<h1 class="text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
+				This Week's Hottest
+			</h1>
+			<p class="text-lg text-gray-600 italic">
+				What's trending in the world of modern women
+			</p>
+		</section>
+
+		<div class="space-y-6">
+			{trendingProducts.map((product) => (
+				<a href={`/product/${product.id}`} class="block group">
+					<article class="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+						<div class="relative">
+							<div class="absolute top-4 left-4 z-10">
+								<div class="flex items-center space-x-2">
+									<span class="w-8 h-8 flex items-center justify-center bg-black/80 text-white font-bold rounded-full">
+										#{product.rank}
+									</span>
+									<div class={`px-3 py-1 rounded-full flex items-center space-x-1 ${
+										product.trend.direction === 'up' 
+											? 'bg-green-500/90 text-white' 
+											: 'bg-red-500/90 text-white'
+									}`}>
+										<svg 
+											class={`w-4 h-4 ${product.trend.direction === 'up' ? '' : 'transform rotate-180'}`}
+											fill="none" 
+											stroke="currentColor" 
+											viewBox="0 0 24 24"
+										>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+										</svg>
+										<span class="text-sm font-medium">{product.trend.percentage}%</span>
+									</div>
+								</div>
+							</div>
+							<div class="h-72 overflow-hidden">
+								<img 
+									src={product.image} 
+									alt={product.title}
+									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+								/>
+							</div>
+						</div>
+						<div class="p-5">
+							<div class="flex justify-between items-start mb-3">
+								<span class="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium rounded-full uppercase tracking-wider">
+									{product.category}
+								</span>
+							</div>
+							<h2 class="text-xl font-display font-semibold text-gray-900 mb-2">{product.title}</h2>
+							<p class="text-sm text-gray-600 leading-relaxed">{product.description}</p>
+						</div>
+					</article>
+				</a>
+			))}
+		</div>
+	</main>
+</Layout>
